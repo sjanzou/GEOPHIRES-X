@@ -234,6 +234,10 @@ class TOUGH2Reservoir(Reservoir):
                 ProdTemperature[i] = float(content[i].split(',')[9].strip('\n'))
 
             model.reserv.Tresoutput.value = np.interp(model.reserv.timevector.value*365*24*3600,SimTimes,ProdTemperature)
+            model.reserv.TempPressure = []
+            for i in range(0,NumerOfResults):
+                model.reserv.TempPressure.append([SimTimes[i],ProdTemperature[i],ProdPressure[i]])      
+
         except:
             print("Error: GEOPHIRES could not import production temperature and pressure from TOUGH2 output file (" +
                   infile + ") and will abort simulation.")
