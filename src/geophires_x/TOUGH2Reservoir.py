@@ -23,7 +23,6 @@ class TOUGH2Reservoir(Reservoir):
         super().__init__(model)   # initialize the parent parameters and variables
         sclass = str(__class__).replace("<class \'", "")
         self.MyClass = sclass.replace("\'>", "")
-
         # Set up all the Parameters that will be predefined by this class using the different types of parameter classes.
         # Setting up includes giving it a name, a default value, The Unit Type (length, volume, temperature, etc) and
         # Unit Name of that value, sets it as required (or not), sets allowable range, the error message if that range
@@ -220,7 +219,7 @@ class TOUGH2Reservoir(Reservoir):
 
         # read output temperature and pressure
         try:
-            fname = 'FOFT'
+            fname = 'FOFT_A36_2.csv'
             with open(fname, encoding='UTF-8') as f:
                 content = f.readlines()
 
@@ -228,10 +227,10 @@ class TOUGH2Reservoir(Reservoir):
             SimTimes = np.zeros(NumerOfResults)
             ProdPressure = np.zeros(NumerOfResults)
             ProdTemperature = np.zeros(NumerOfResults)
-            for i in range(0,NumerOfResults):
-                SimTimes[i] = float(content[i].split(',')[1].strip('\n'))
-                ProdPressure[i] = float(content[i].split(',')[8].strip('\n'))
-                ProdTemperature[i] = float(content[i].split(',')[9].strip('\n'))
+            for i in range(1,NumerOfResults):
+                SimTimes[i] = float(content[i].split(',')[0].strip('\n'))
+                ProdPressure[i] = float(content[i].split(',')[1].strip('\n'))
+                ProdTemperature[i] = float(content[i].split(',')[2].strip('\n'))
 
             model.reserv.Tresoutput.value = np.interp(model.reserv.timevector.value*365*24*3600,SimTimes,ProdTemperature)
             model.reserv.TempPressure = []

@@ -477,7 +477,11 @@ class Outputs:
                         f.write(f'      Average Injection Well Pump Pressure Drop:       {np.average(model.wellbores.DPInjWell.value):10.1f} ' + model.wellbores.DPInjWell.PreferredUnits.value + NL)
                         if model.wellbores.productionwellpumping.value:
                             f.write(f'      Average Production Well Pump Pressure Drop:      {np.average(model.wellbores.DPProdWell.value):10.1f} ' + model.wellbores.DPProdWell.PreferredUnits.value + NL)
-
+                    if model.InputParameters['Reservoir Model'].sValue in ['6', 'TOUGH2 Simulator']:
+                            f.write('  seconds    temperature          pressure\n')
+                            for ts, temp, pres in model.reserv.TempPressure:
+                                f.write('  {0:2.0f}         {1:8.4f}              {2:8.2f}'.format(ts, temp, pres) + NL)
+        
 
                 f.write('\n\n                          ***CAPITAL COSTS (M$)***\n\n')
                 if not model.economics.totalcapcost.Valid:
