@@ -451,6 +451,7 @@ class GeophiresXResult:
 
         try:
             self.result['POWER GENERATION PROFILE'] = self._get_power_generation_profile()
+            self.result['TOUGH2 RESERVOIR SIMULATION RESULTS'] = self._get_tough2_reservoir_simulation_results()
             self.result['HEAT AND/OR ELECTRICITY EXTRACTION AND GENERATION PROFILE'] = (
                 self._get_heat_electricity_extraction_generation_profile()
             )
@@ -570,6 +571,7 @@ class GeophiresXResult:
                     GeophiresXResult.CARBON_REVENUE_PROFILE_NAME,
                     GeophiresXResult.CCUS_PROFILE_LEGACY_NAME,
                     'S-DAC-GT PROFILE',
+                    'TOUGH2 RESERVOIR SIMULATION RESULTS',
                 ):
 
                     for i in range(len(fields[0][1:])):
@@ -744,6 +746,14 @@ class GeophiresXResult:
         except IndexError:
             profile_lines = self._get_profile_lines('POWER GENERATION PROFILE')
         return self._get_data_from_profile_lines(profile_lines)
+
+    @property
+    def TOUGH2_reservoir_simulation_results(self) -> list[list[str | float]]:
+        return self.result['TOUGH2 RESERVOIR SIMULATION RESULTS']
+
+    def _get_tough2_reservoir_simulation_results(self):
+        profile_lines = self._get_profile_lines('TOUGH2 RESERVOIR SIMULATION RESULTS')
+        return self._get_data_from_profile_lines(profile_lines) 
 
     @property
     def heat_electricity_extraction_generation_profile(self):
