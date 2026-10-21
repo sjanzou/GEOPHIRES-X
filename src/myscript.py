@@ -84,7 +84,22 @@ def main():
         })
     )
 
-    print(result, flush=True)
+    x= result.TOUGH2_reservoir_simulation_results[1:]
+
+    response = {
+        "status": "success",
+        "matrix_rows": len(x),
+        "matrix_cols": 3,
+        "matrix_data": []
+    }
+    for i in range(len(x)):
+        response["matrix_data"].extend([x[i][0], x[i][1], x[i][2]])
+
+    cpp_response_file = os.path.join(real_cpp_dir, "dist", "py_response.json")
+    with open(cpp_response_file, "w", encoding='utf-8') as f:
+        json.dump(response, f)
+        f.flush()
+        os.fsync(f.fileno())
 
 if __name__ == "__main__":
     main()

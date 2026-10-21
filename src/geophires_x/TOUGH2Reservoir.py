@@ -234,7 +234,7 @@ class TOUGH2Reservoir(Reservoir):
 
             model.reserv.Tresoutput.value = np.interp(model.reserv.timevector.value*365*24*3600,SimTimes,ProdTemperature)
             model.reserv.TempPressure = []
-            for i in range(0,NumerOfResults):
+            for i in range(1,NumerOfResults):
                 model.reserv.TempPressure.append([SimTimes[i],ProdTemperature[i],ProdPressure[i]])      
 
         except:
