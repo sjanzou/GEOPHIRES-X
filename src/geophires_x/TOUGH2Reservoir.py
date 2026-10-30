@@ -162,7 +162,7 @@ class TOUGH2Reservoir(Reservoir):
             f.write('Doublet\n')
             f.write('MESHMAKER1----*----2----*----3----*----4----*----5----*----6----*----7----*----8\n')
             f.write('XYZ\n')
-            f.write('	0.\n')
+            f.write('       0.0\n')
             f.write('NX      17 %9.3f\n' % DeltaXgrid)
             f.write('NY      11 %9.3f\n' % DeltaYgrid)
             f.write('NZ       5 %9.3f\n' % DeltaZgrid)
