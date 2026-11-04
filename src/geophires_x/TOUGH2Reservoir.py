@@ -216,6 +216,16 @@ class TOUGH2Reservoir(Reservoir):
         except:
             print("Error: GEOPHIRES could not run TOUGH2 and will abort simulation.")
             sys.exit()
+        
+        #if  Doublet.out contains "TOUGH ERROR", then run TOUGH3 executable
+        try:
+            with open (outfile, encoding='UTF-8') as f:
+                content = f.read()
+                if "TOUGH ERROR" in content:
+                    os.system('%s  %s  %s' % (path_to_exe, infile, outfile))
+        except:
+            print("Error: GEOPHIRES could not run TOUGH2 or TOUGH3 and will abort simulation.", content)
+            sys.exit()
 
         # read output temperature and pressure
         try:
