@@ -86,7 +86,7 @@ setup(
         'coolprop==6.7.0; python_version == "3.8"',
         'rich',
         'pylocker',
-        'nrel-pysam',
+        'nlr-pysam',
         'tabulate',
     ],
     extras_require={
